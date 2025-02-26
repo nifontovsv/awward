@@ -12,11 +12,16 @@
 	"dependencies": {
 		"@gsap/react": "^2.1.2",
 		"@tailwindcss/vite": "^4.0.8",
+		"autoprefixer": "^10.4.20",
+		"clsx": "^2.1.1",
 		"gsap": "^3.12.7",
+		"postcss": "^8.5.3",
+		"postcss-apply": "^0.12.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-icons": "^5.5.0",
-		"tailwindcss": "^4.0.8",
+		"react-use": "^17.6.0",
+		"tailwindcss": "^4.0.9",
 		"vite-tsconfig-paths": "^5.1.4"
 	},
 	"devDependencies": {

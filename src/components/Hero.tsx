@@ -7,7 +7,11 @@ import { ScrollTrigger } from 'gsap/all';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Hero(): JSX.Element {
+type VideoElement = HTMLVideoElement | null;
+
+type HeroProps = {};
+
+export default function Hero({}: HeroProps): JSX.Element {
 	const [currentIndex, setCurrentIndex] = useState<number>(1);
 	const [backgroundSrc, setBackgroundSrc] =
 		useState<string>('videos/hero-1.mp4');
@@ -38,50 +42,20 @@ export default function Hero(): JSX.Element {
 		if (loadedVideos >= totalVideos) {
 			setLoading(false);
 		}
+		// Увеличим задержку до 3 сек, чтобы Safari успел загрузить
 		const timeout = setTimeout(() => {
 			if (loadedVideos < totalVideos) {
-				console.warn('Not all videos loaded, forcing loading state to false');
+				console.warn('⚠️ Not all videos loaded, but continuing...');
 				setLoading(false);
 			}
-		}, 1000);
+		}, 3000);
 		return () => clearTimeout(timeout);
 	}, [loadedVideos]);
 
-	const handleMiniVdClick = () => {
+	const handleMiniVdClick = (): void => {
 		setHasClicked(true);
 		setCurrentIndex((prevIndex) => (prevIndex % totalVideos) + 1);
 	};
-
-	// useGSAP(
-	// 	() => {
-	// 		if (hasClicked && nextVideoRef.current) {
-	// 			gsap.set('#next-video', {
-	// 				opacity: 0,
-	// 				visibility: 'visible',
-	// 				zIndex: 20,
-	// 			});
-	// 			gsap.to('#next-video', {
-	// 				opacity: 1,
-	// 				duration: 1,
-	// 				ease: 'power1.inOut',
-	// 				onStart: () => nextVideoRef.current.play(),
-	// 				onComplete: () => {
-	// 					setBackgroundSrc(getVideoSrc(currentIndex)); // Обновляем фон после анимации
-	// 					gsap.set('#next-video', {
-	// 						opacity: 0,
-	// 						visibility: 'hidden',
-	// 						zIndex: -1,
-	// 					});
-	// 					setHasClicked(false); // Сбрасываем состояние клика
-	// 				},
-	// 			});
-	// 		}
-	// 	},
-	// 	{
-	// 		dependencies: [currentIndex],
-	// 		revertOnUpdate: true,
-	// 	}
-	// );
 
 	useGSAP(
 		() => {
@@ -97,13 +71,6 @@ export default function Hero(): JSX.Element {
 					onStart: () => nextVideoRef.current.play(),
 				});
 
-				gsap.to('#current-video', {
-					scale: 1.1, // Увеличиваем до 1.1
-					duration: 2, // Длительность одного направления (0.5 сек вперед, 0.5 сек назад)
-					ease: 'power1.inOut', // Плавное ускорение/замедление
-					repeat: -1, // Бесконечный повтор
-					yoyo: true, // Движение туда-сюда
-				});
 				gsap.from('#current-video', {
 					transformOrigin: 'center center',
 					scale: 0,
@@ -153,7 +120,7 @@ export default function Hero(): JSX.Element {
 		}
 	}, [loading]);
 
-	const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
+	const getVideoSrc = (index: number): string => `videos/hero-${index}.mp4`;
 
 	return (
 		<div className='relative h-dvh w-screen overflow-x-hidden'>
@@ -183,6 +150,7 @@ export default function Hero(): JSX.Element {
 								src={getVideoSrc((currentIndex % totalVideos) + 1)}
 								loop
 								muted
+								playsInline
 								id='current-video'
 								className='size-64 origin-center scale-150 object-cover object-center'
 								onLoadedData={handleVideoLoad}
@@ -197,6 +165,7 @@ export default function Hero(): JSX.Element {
 						src={getVideoSrc(currentIndex)}
 						loop
 						muted
+						playsInline
 						id='next-video'
 						className='absolute-center invisible absolute z-20 size-64 object-cover object-center'
 						onLoadedData={handleVideoLoad}
@@ -206,6 +175,7 @@ export default function Hero(): JSX.Element {
 						autoPlay
 						loop
 						muted
+						playsInline
 						className='absolute left-0 top-0 size-full object-cover object-center'
 						onLoadedData={handleVideoLoad}
 					/>
@@ -215,7 +185,7 @@ export default function Hero(): JSX.Element {
 					G<b>A</b>MING
 				</h1>
 
-				<div className='absolute left-0 top-0 z-40 size-full'>
+				<div className='absolute  left-0 top-0 z-40 size-full'>
 					<div className='mt-24 px-5 sm:px-10'>
 						<h1 className='special-font hero-heading text-blue-100'>
 							redefi<b>n</b>e
@@ -241,3 +211,10 @@ export default function Hero(): JSX.Element {
 		</div>
 	);
 }
+
+// Hi, first you need to create a new state, for example:
+// const [backgroundSrc, setBackgroundSrc] = useState<string>('videos/hero-1.mp4').
+// Then we put the initial video in the initial state, for example: 'videos/hero-1.mp4'.
+// Now, in the background video, replace src={getVideoSrc(currentIndex === totalVideos - 1 ? 1 : currentIndex)}
+// with on our state src={backgroundSrc}.
+// This should help!
