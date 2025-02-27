@@ -5,7 +5,7 @@ import Button from './Button';
 import { TiLocationArrow } from 'react-icons/ti';
 import clsx from 'clsx';
 
-const navItems: string = ['Nexus', 'Vault', 'Prologue', 'About', 'Contact'];
+const navItems: string[] = ['Nexus', 'Vault', 'Prologue', 'About', 'Contact'];
 
 const Navbar: React.FC = () => {
 	// State for toggling audio and visual indicator

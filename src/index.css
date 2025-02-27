@@ -62,7 +62,7 @@ body {
 @utility absolute-center {
 	@apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
 }
-@utility special-font {
+.special-font b {
 	font-family: 'zentry';
 	font-feature-settings: 'ss01' 1;
 }
@@ -92,6 +92,22 @@ body {
 }
 @utility floating-nav {
 	@apply bg-black rounded-lg border;
+}
+
+@utility border-hsla {
+	@apply border border-white/20;
+}
+
+@utility bento-tilt_1 {
+	@apply relative border-hsla col-span-2 overflow-hidden rounded-md transition-transform duration-300 ease-out;
+}
+
+@utility bento-tilt_2 {
+	@apply relative col-span-1 row-span-1 overflow-hidden rounded-md transition-transform duration-300 ease-out;
+}
+
+@utility bento-title {
+	@apply uppercase md:text-6xl text-4xl font-black font-zentry;
 }
 
 .three-body {
@@ -222,21 +238,7 @@ body {
 }
 
 /* @layer utilities {
-	.border-hsla {
-		@apply border border-white/20;
-	}
 
-	.bento-tilt_1 {
-		@apply relative border-hsla col-span-2 overflow-hidden rounded-md transition-transform duration-300 ease-out;
-	}
-
-	.bento-tilt_2 {
-		@apply relative col-span-1 row-span-1 overflow-hidden rounded-md transition-transform duration-300 ease-out;
-	}
-
-	.bento-title {
-		@apply uppercase md:text-6xl text-4xl font-black font-zentry;
-	}
 
 	.story-img-container {
 		@apply relative md:h-dvh h-[90vh] w-full;
