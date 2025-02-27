@@ -4,6 +4,7 @@ import { TiLocationArrow } from 'react-icons/ti';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import { VideoPreview } from './VideoPreview';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,7 +90,7 @@ export default function Hero({}: HeroProps): JSX.Element {
 	useGSAP(() => {
 		if (isHovered) {
 			gsap.killTweensOf('#current-video'); // Удаляем возможные старые анимации
-			gsap.set('#current-video', { scale: 0.7 });
+			gsap.set('#current-video', { scale: 1 });
 			gsap.to('#current-video', {
 				scale: 1.1,
 				duration: 0.9,
@@ -140,24 +141,24 @@ export default function Hero({}: HeroProps): JSX.Element {
 			>
 				<div>
 					<div className='mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg'>
-						{/* <VideoPreview> */}
-						<div
-							onClick={handleMiniVdClick}
-							className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100'
-						>
-							<video
-								ref={miniVideoRef}
-								src={getVideoSrc((currentIndex % totalVideos) + 1)}
-								loop
-								muted
-								playsInline
-								id='current-video'
-								className='size-64 origin-center scale-150 object-cover object-center'
-								onLoadedData={handleVideoLoad}
-								onMouseEnter={handleMouseEnter}
-							/>
-						</div>
-						{/* </VideoPreview> */}
+						<VideoPreview>
+							<div
+								onClick={handleMiniVdClick}
+								className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100'
+							>
+								<video
+									ref={miniVideoRef}
+									src={getVideoSrc((currentIndex % totalVideos) + 1)}
+									loop
+									muted
+									playsInline
+									id='current-video'
+									className='size-64 origin-center scale-150 object-cover object-center'
+									onLoadedData={handleVideoLoad}
+									onMouseEnter={handleMouseEnter}
+								/>
+							</div>
+						</VideoPreview>
 					</div>
 
 					<video
