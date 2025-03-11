@@ -14,23 +14,23 @@ const Navbar: React.FC = () => {
 
 	// Refs for audio and navigation container
 	const audioElementRef = useRef<HTMLAudioElement | null>(null);
-	const navContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
+	const navContainerRef = useRef<HTMLDivElement | null>(null);
 
 	const { y: currentScrollY } = useWindowScroll();
 	const [isNavVisible, setIsNavVisible] = useState<boolean>(true);
 	const [lastScrollyY, setLastScrollyY] = useState<number>(0);
 
 	// Toggle audio and visual indicator
-	const toggleAudioIndicator = () => {
+	const toggleAudioIndicator = (): void => {
 		setIsAudioPlaying((prev) => !prev);
 		setIsIndicatorActive((prev) => !prev);
 	};
 
 	// Manage audio playback
 	useEffect(() => {
-		if (isAudioPlaying) {
+		if (isAudioPlaying && audioElementRef.current) {
 			audioElementRef.current.play();
-		} else {
+		} else if (audioElementRef.current) {
 			audioElementRef.current.pause();
 		}
 	}, [isAudioPlaying]);
@@ -39,15 +39,15 @@ const Navbar: React.FC = () => {
 		if (currentScrollY === 0) {
 			// Topmost position: show navbar without floating-nav
 			setIsNavVisible(true);
-			navContainerRef.current.classList.remove('floating-nav');
+			navContainerRef.current?.classList.remove('floating-nav');
 		} else if (currentScrollY > lastScrollyY) {
 			// Scrolling down: hide navbar and apply floating-nav
 			setIsNavVisible(false);
-			navContainerRef.current.classList.add('floating-nav');
+			navContainerRef.current?.classList.add('floating-nav');
 		} else if (currentScrollY < lastScrollyY) {
 			// Scrolling up: show navbar with floating-nav
 			setIsNavVisible(true);
-			navContainerRef.current.classList.add('floating-nav');
+			navContainerRef.current?.classList.add('floating-nav');
 		}
 
 		setLastScrollyY(currentScrollY);
@@ -69,13 +69,14 @@ const Navbar: React.FC = () => {
 			<header className='absolute top-1/2 w-full -translate-y-1/2'>
 				<nav className='flex size-full items-center justify-between p-4'>
 					<div className='flex items-center gap-7'>
-						<img src='/img/logo.png' alt='logo' className='w-10' />
+						<img src='img/logo.png' alt='logo' className='w-10' />
 
 						<Button
 							id='product-button'
 							title='Products'
 							rightIcon={<TiLocationArrow />}
 							containerClass='bg-blue-50 md:flex hidden items-center justify-center gap-1'
+							leftIcon={undefined}
 						/>
 					</div>
 

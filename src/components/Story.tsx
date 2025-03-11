@@ -3,10 +3,14 @@ import AnimatedTitle from './AnimatedTitle';
 import Button from './Button';
 import gsap from 'gsap';
 
-const Story = () => {
-	const frameRef = useRef(null);
+const Story: React.FC = () => {
+	// Типизация useRef для элемента изображения
+	const frameRef = useRef<HTMLImageElement | null>(null);
 
-	const handleMouseMove = (e) => {
+	// Типизация обработчика событий мыши
+	const handleMouseMove = (
+		e: React.MouseEvent<HTMLImageElement, MouseEvent>
+	): void => {
 		const { clientX, clientY } = e;
 		const element = frameRef.current;
 
@@ -31,7 +35,7 @@ const Story = () => {
 		});
 	};
 
-	const handleMouseLeave = () => {
+	const handleMouseLeave = (): void => {
 		const element = frameRef.current;
 
 		if (element) {
@@ -69,7 +73,7 @@ const Story = () => {
 									onMouseLeave={handleMouseLeave}
 									onMouseUp={handleMouseLeave}
 									onMouseEnter={handleMouseLeave}
-									src='/img/entrance.webp'
+									src='img/entrance.webp'
 									alt='entrance.webp'
 									className='object-contain'
 								/>
@@ -118,6 +122,8 @@ const Story = () => {
 							id='realm-btn'
 							title='discover prologue'
 							containerClass='mt-5'
+							rightIcon={undefined}
+							leftIcon={undefined}
 						/>
 					</div>
 				</div>

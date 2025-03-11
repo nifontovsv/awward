@@ -10,9 +10,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 type VideoElement = HTMLVideoElement | null;
 
-type HeroProps = {};
+interface HeroProps {}
 
-export default function Hero({}: HeroProps): JSX.Element {
+const Hero = ({}: HeroProps): JSX.Element => {
 	const [currentIndex, setCurrentIndex] = useState<number>(1);
 	const [backgroundSrc, setBackgroundSrc] =
 		useState<string>('videos/hero-1.mp4');
@@ -22,10 +22,10 @@ export default function Hero({}: HeroProps): JSX.Element {
 	const [isHovered, setIsHovered] = useState<boolean>(false); // Новое состояние для наведения
 
 	const totalVideos: number = 4;
-	const nextVideoRef = useRef<HTMLVideoElement | null>(null);
-	const miniVideoRef = useRef<HTMLVideoElement | null>(null);
+	const nextVideoRef = useRef<VideoElement>(null);
+	const miniVideoRef = useRef<VideoElement>(null);
 
-	const handleVideoLoad = (index: number) => {
+	const handleVideoLoad = (index: number): void => {
 		setLoadedVideos((prev) => {
 			const newCount = prev + 1;
 			console.log(`Video ${index} loaded. Total: ${newCount}/${totalVideos}`);
@@ -33,7 +33,7 @@ export default function Hero({}: HeroProps): JSX.Element {
 		});
 	};
 
-	const handleMouseEnter = () => {
+	const handleMouseEnter = (): void => {
 		if (!isHovered) {
 			setIsHovered(true); // Активируем анимацию при первом наведении
 		}
@@ -69,7 +69,10 @@ export default function Hero({}: HeroProps): JSX.Element {
 					height: '100%',
 					duration: 1,
 					ease: 'power1.inOut',
-					onStart: () => nextVideoRef.current.play(),
+					onStart: () => {
+						// Здесь вызов play() без асинхронности
+						nextVideoRef.current?.play();
+					},
 				});
 
 				gsap.from('#current-video', {
@@ -154,7 +157,7 @@ export default function Hero({}: HeroProps): JSX.Element {
 									playsInline
 									id='current-video'
 									className='size-64 origin-center scale-150 object-cover object-center'
-									onLoadedData={handleVideoLoad}
+									onLoadedData={() => handleVideoLoad(currentIndex)}
 									onMouseEnter={handleMouseEnter}
 								/>
 							</div>
@@ -169,7 +172,7 @@ export default function Hero({}: HeroProps): JSX.Element {
 						playsInline
 						id='next-video'
 						className='absolute-center invisible absolute z-20 size-64 object-cover object-center'
-						onLoadedData={handleVideoLoad}
+						onLoadedData={() => handleVideoLoad(currentIndex)}
 					/>
 					<video
 						src={backgroundSrc}
@@ -178,7 +181,7 @@ export default function Hero({}: HeroProps): JSX.Element {
 						muted
 						playsInline
 						className='absolute left-0 top-0 size-full object-cover object-center'
-						onLoadedData={handleVideoLoad}
+						onLoadedData={() => handleVideoLoad(currentIndex)}
 					/>
 				</div>
 
@@ -201,6 +204,7 @@ export default function Hero({}: HeroProps): JSX.Element {
 							title='Watch trailer'
 							leftIcon={<TiLocationArrow />}
 							containerClass='bg-yellow-300 flex-center gap-1'
+							rightIcon={undefined}
 						/>
 					</div>
 				</div>
@@ -211,11 +215,6 @@ export default function Hero({}: HeroProps): JSX.Element {
 			</h1>
 		</div>
 	);
-}
+};
 
-// Hi, first you need to create a new state, for example:
-// const [backgroundSrc, setBackgroundSrc] = useState<string>('videos/hero-1.mp4').
-// Then we put the initial video in the initial state, for example: 'videos/hero-1.mp4'.
-// Now, in the background video, replace src={getVideoSrc(currentIndex === totalVideos - 1 ? 1 : currentIndex)}
-// with on our state src={backgroundSrc}.
-// This should help!
+export default Hero;

@@ -1,13 +1,18 @@
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ReactNode } from 'react';
 
-export const VideoPreview = ({ children }) => {
-	const [isHovering, setIsHovering] = useState(false);
+interface VideoPreviewProps {
+	children: ReactNode; // Типизация для детей компонента
+}
 
-	const sectionRef = useRef(null);
-	const contentRef = useRef(null);
+export const VideoPreview: React.FC<VideoPreviewProps> = ({ children }) => {
+	const [isHovering, setIsHovering] = useState<boolean>(false);
 
-	const handleMouseMove = ({ clientX, clientY, currentTarget }) => {
+	const sectionRef = useRef<HTMLOptionElement | null>(null); // Типизация для рефа на <section>
+	const contentRef = useRef<HTMLDivElement | null>(null); // Типизация для рефа на <div>
+
+	const handleMouseMove = (e: React.MouseEvent<HTMLOptionElement>) => {
+		const { clientX, clientY, currentTarget } = e;
 		const rect = currentTarget.getBoundingClientRect();
 
 		const xOffset = clientX - (rect.left + rect.width / 2);

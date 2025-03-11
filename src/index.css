@@ -114,8 +114,6 @@ body {
 	@apply relative md:h-dvh h-[90vh] w-full;
 	filter: url('#flt_tag');
 }
-.story-img-container {
-}
 
 @utility story-img-mask {
 	@apply absolute left-0 top-0 size-full overflow-hidden md:left-[20%] md:top-[-10%] md:size-4/5;

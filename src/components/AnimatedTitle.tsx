@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { useEffect, useRef } from 'react';
+import { JSX, useEffect, useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import clsx from 'clsx';
 
@@ -10,10 +10,15 @@ interface AnimatedTitleProps {
 	containerClass: string;
 }
 
-const AnimatedTitle = ({ title, containerClass }: AnimatedTitleProps) => {
-	const containerRef = useRef(null);
+const AnimatedTitle = ({
+	title,
+	containerClass,
+}: AnimatedTitleProps): JSX.Element => {
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		if (!containerRef.current) return; // Проверка на существование элемента
+
 		const ctx = gsap.context(() => {
 			const titleAnimation = gsap.timeline({
 				scrollTrigger: {
@@ -36,7 +41,7 @@ const AnimatedTitle = ({ title, containerClass }: AnimatedTitleProps) => {
 			);
 		}, containerRef);
 
-		return () => ctx.revert(); // Clean up on unmount
+		return () => ctx.revert(); // Очистка на размонтирование компонента
 	}, []);
 
 	return (

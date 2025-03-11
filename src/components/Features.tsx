@@ -1,16 +1,25 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, ReactNode, JSX } from 'react';
 import { TiLocationArrow } from 'react-icons/ti';
 
-export const BentoTilt = ({ children, className = '' }) => {
-	const [transformStyle, setTransformStyle] = useState('');
-	const itemRef = useRef(null);
+// Типизация пропсов для компонента BentoTilt
+interface BentoTiltProps {
+	children: ReactNode;
+	className?: string;
+}
 
-	const handleMouseMove = (event) => {
+export const BentoTilt = ({
+	children,
+	className = '',
+}: BentoTiltProps): JSX.Element => {
+	const [transformStyle, setTransformStyle] = useState<string>('');
+	const itemRef = useRef<HTMLDivElement | null>(null);
+
+	// Указываем тип события как React.MouseEvent<HTMLDivElement>
+	const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>): void => {
 		if (!itemRef.current) return;
 
 		const { left, top, width, height } =
 			itemRef.current.getBoundingClientRect();
-
 		const relativeX = (event.clientX - left) / width;
 		const relativeY = (event.clientY - top) / height;
 
@@ -21,7 +30,7 @@ export const BentoTilt = ({ children, className = '' }) => {
 		setTransformStyle(newTransform);
 	};
 
-	const handleMouseLeave = () => {
+	const handleMouseLeave = (): void => {
 		setTransformStyle('');
 	};
 
@@ -38,12 +47,29 @@ export const BentoTilt = ({ children, className = '' }) => {
 	);
 };
 
-export const BentoCard = ({ src, title, description, isComingSoon }) => {
-	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-	const [hoverOpacity, setHoverOpacity] = useState(0);
-	const hoverButtonRef = useRef(null);
+// Типизация пропсов для компонента BentoCard
+interface BentoCardProps {
+	src: string;
+	title: ReactNode;
+	description?: string;
+	isComingSoon: boolean;
+}
 
-	const handleMouseMove = (event) => {
+export const BentoCard = ({
+	src,
+	title,
+	description,
+	isComingSoon,
+}: BentoCardProps): JSX.Element => {
+	const [cursorPosition, setCursorPosition] = useState<{
+		x: number;
+		y: number;
+	}>({ x: 0, y: 0 });
+	const [hoverOpacity, setHoverOpacity] = useState<number>(0);
+	const hoverButtonRef = useRef<HTMLDivElement | null>(null);
+
+	// Указываем тип события как React.MouseEvent<HTMLDivElement>
+	const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>): void => {
 		if (!hoverButtonRef.current) return;
 		const rect = hoverButtonRef.current.getBoundingClientRect();
 
@@ -53,8 +79,8 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
 		});
 	};
 
-	const handleMouseEnter = () => setHoverOpacity(1);
-	const handleMouseLeave = () => setHoverOpacity(0);
+	const handleMouseEnter = (): void => setHoverOpacity(1);
+	const handleMouseLeave = (): void => setHoverOpacity(0);
 
 	return (
 		<div className='relative size-full'>
@@ -98,7 +124,8 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
 	);
 };
 
-const Features = () => (
+// Типизация компонента Features
+const Features = (): JSX.Element => (
 	<section className='bg-black pb-52'>
 		<div className='container mx-auto px-3 md:px-10'>
 			<div className='px-5 py-32'>
@@ -106,7 +133,6 @@ const Features = () => (
 					Into the Metagame Layer
 				</p>
 				<p className='max-w-md font-circular-web text-lg text-blue-50 opacity-50'>
-					{' '}
 					Immerse yourself in a rich and ever-expanding universe where a vibrant
 					array of products converge into an interconnected overlay experience
 					on your world.
