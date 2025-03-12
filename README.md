@@ -39,7 +39,7 @@ git clone https://github.com/nifontovsv/awward.git
 2. Перейдите в папку с проектом
 
 ```bash
-cd portfolio
+cd awward
 ```
 
 3. Подгрузите зависимости
