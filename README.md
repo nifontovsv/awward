@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# 🌟 Официальный сайт MMO RPG от студии AWWARD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 🚀 Демо-версия: https://nifontovsv.github.io/awward/
 
-Currently, two official plugins are available:
+## 🎮 Описание проекта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Одностраничный сайт, представляющий новую MMO RPG от студии **AWWARD**. Проект демонстрирует атмосферу игры, её особенности, игровой процесс и стиль, используя современные технологии фронтенда.
 
-## Expanding the ESLint configuration
+## 🛠️ Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[![React](https://img.shields.io/static/v1?label=&message=React&color=61DAFB&logo=react&logoColor=FFFFFF)](https://react.dev/) [![TypeScript](https://img.shields.io/static/v1?label=&message=TypeScript&color=3178C6&logo=typescript&logoColor=FFFFFF)](https://www.typescriptlang.org/) [![Vite](https://img.shields.io/static/v1?label=&message=Vite&color=646CFF&logo=vite&logoColor=FFFFFF)](https://vitejs.dev/) [![GSAP](https://img.shields.io/static/v1?label=&message=GSAP&color=88CE02&logo=greensock&logoColor=FFFFFF)](https://greensock.com/gsap/) [![Tailwind CSS](https://img.shields.io/static/v1?label=&message=TailwindCSS&color=38B2AC&logo=tailwindcss&logoColor=FFFFFF)](https://tailwindcss.com/)
 
-- Configure the top-level `parserOptions` property like this:
+## 📌 Используемые библиотеки
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Vite** – быстрая сборка проекта
+- **TypeScript** – строгая типизация для надежного кода
+- **GSAP** – плавные и эффектные анимации
+- **Tailwind CSS** – кастомные стили и удобная адаптивность
+- **React Icons** – красивые иконки для UI
+- **React Use** – полезные React-хуки для работы с состоянием
+- **PostCSS + Autoprefixer** – удобная обработка стилей
+
+## ✨ Особенности
+
+✅ Захватывающие анимации с **GSAP**  
+✅ Полностью адаптивный дизайн  
+✅ Оптимизированная производительность с **Vite**  
+✅ Эффектная презентация игровых механик  
+✅ Чистый и масштабируемый код
+
+## 📂 Установка и запуск
+
+1. Клонируйте репозиторий
+
+```bash
+git clone https://github.com/nifontovsv/awward.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Перейдите в папку с проектом
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+cd portfolio
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+3. Подгрузите зависимости
+
+```bash
+npm install
+```
+
+4. Запустите проект
+
+```bash
+npm start
 ```
